@@ -21,7 +21,7 @@ constructor (private authService:AuthService, private router:Router){
     this.authService.loginUser(form.form.value).subscribe({
       next: (data)=>{
         console.log(data);
-        this.router.navigate(['product', 'list'])
+        this.router.navigate(['/'])
       }
     })
   }

@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
 import { pool } from "../db/connect";
 import { User } from "../models/user";
-
-
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
 export class AuthController{
-       static async signin(req:any, res:any){
+    static async signin(req:any, res:any){
         let name=req.body.name;
         let surname=req.body.surname;
         let email=req.body.email;
@@ -35,18 +35,38 @@ export class AuthController{
         const [result]=await pool.query<User[]>(sql, [email])
         if (result.length!=1){
             return res.status(400).json({
-                'text': 'Vartotojas su tokiu el.pastu jau neegzistuoja'
+                'text': 'Vartotojas su tokiu el.paštu neegzistuoja'
             })
         }
         const user=result[0]
         let passwordOK = await bcrypt.compare(password, user.password);
         if(!passwordOK){
             return res.status(400).json({
-                'text': 'Ivestas neteisingas slaptazodis arba el.pasto adresas'
+                'text': 'Įvestas neteisingas slaptažodis arba el.pašto adresas'
             })
         }
-        res.json({
-            'text': 'Viskas OK'
+        if (process.env.TOKEN_SECRET!=null){
+            dotenv.config();
+            let token=jwt.sign(
+            {
+            id:user.id,
+            type:user.type
+        },
+        process.env.TOKEN_SECRET,
+        {
+            expiresIn: '2 days'
         })
+
+        res.json({
+            // 'text': 'Viskas OK'
+            'id': user.id,
+            'name': user.name,
+            'surname': user.surname,
+            'email':user.email,
+            'phone':user.phone,
+            'type':user.type,
+            'token': token,
+        })
+    }
     }
 }

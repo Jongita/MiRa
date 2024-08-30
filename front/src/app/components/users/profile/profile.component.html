@@ -1,0 +1,30 @@
+<div class="card mt-3">
+    <div class="card-header">Mano vartotojas</div>
+    <div class="card-body">
+        <form action="" [formGroup]="profileForm" (ngSubmit)="onSubmitForm()">
+            <div class="mb-3">
+                <label for="" class="form-label">Mano vardas</label>
+                <input type="text" name="" id="" class="form-control" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">El. pašto adresas</label>
+                <input type="text" name="" id="" class="form-control" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Slaptažodis</label>
+                <input type="password" name="" id="" class="form-control" formControlName="password">
+            </div>
+            <hr>
+            <div class="my-3">
+                <img [src]="imgPreview" alt="">
+            </div>
+            <hr>
+            <div>
+                <button class="btn btn-info" type="button" (click)="profileImagePicker.click()">Įkelti paveikslėlį</button>
+                <input type="file" name="userImage" class="d-none" #profileImagePicker (change)="onProfileImageChange($event)">
+            </div>
+            <hr>
+            <button type="submit" class="btn btn-success">Išsaugoti pakeitimus</button>
+        </form>
+    </div>
+</div>
