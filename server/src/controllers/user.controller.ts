@@ -8,9 +8,15 @@ export class UserController{
     static async getAll(req:any, res:any){
         const [result]=await pool.query<User[]>("SELECT * FROM users");
         return res.json(result);
+       
+
     }
     static async getUser(req:any, res:any){
+        //Redaguojamo vartotojo ID
         const userId=req.params.id;
+
+        //req.user.id  -- prisijungusio vartotojo id
+        //req.user.type -- prisijungusio vartotojo tipas
 
         if ( !(req.user.type==0 || userId==req.user.id)){
             res.status(400).json({
@@ -29,25 +35,20 @@ export class UserController{
         }
     }
 
-    static async updateUserRecord(id:any, email:any, name:any, surname:any, password:any, type:any, phone:any, fileURL:any){
+    static async updateUserRecord(id:any, email:any, name:any, password:any, type:any, fileURL:any){
         if (password!=''){
             const passwordHash=await bcrypt.hash(password, 12);
 
-            await pool.query("UPDATE users SET email=?, name=?, surname=?, password=?, phone=? WHERE id=? ",[
+            await pool.query("UPDATE users SET email=?, name=?, password=? WHERE id=? ",[
                 email,
                 name,
-                surname,
                 passwordHash,
-                type,
-                phone,
                 id
             ]);
         }else{
-            await pool.query("UPDATE users SET email=?, name=?, surname=?, phone=? WHERE id=? ",[
+            await pool.query("UPDATE users SET email=?, name=? WHERE id=? ",[
                 email,
                 name,
-                surname,
-                phone,
                 id
             ]);
         }
@@ -60,8 +61,10 @@ export class UserController{
         }
 
         if (fileURL!=null){
+            // pasiimti is duomenu bazes buvusi pavadinima
             const [oldUser]=await pool.query<User[]>("SELECT * FROM users WHERE id=?", [id]);
            
+            // istrinsim pries tai buvusi faila
             fs.unlinkSync(path.join('./img/'+oldUser[0].img.split('/').pop()))
             await pool.query("UPDATE users SET img=? WHERE id=? ",[
                 fileURL,
@@ -71,14 +74,38 @@ export class UserController{
     }
 
     static async update(req:any, res:any){
-
+        //Redaguojamo vartotojo ID
         const userId=req.params.id;
+
+        //req.user.id  -- prisijungusio vartotojo id
+        //req.user.type -- prisijungusio vartotojo tipas
+
         if ( !(req.user.type==0 || userId==req.user.id)){
             res.status(400).json({
                 text:"Jūs neturite teisės redaguoti įrašą"
             })
         }
-        await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.surname, req.body.password, req.body.type, req.body.phone, null );
+
+        // if (req.body.password!=''){
+        //     const passwordHash=await bcrypt.hash(req.body.password, 12);
+
+        //     await pool.query("UPDATE users SET email=?, name=?, password=?, type=? WHERE id=? ",[
+        //         req.body.email,
+        //         req.body.name,
+        //         passwordHash,
+        //         req.body.type,
+        //         userId
+        //     ]);
+        // }else{
+        //     await pool.query("UPDATE users SET email=?, name=?, type=? WHERE id=? ",[
+        //         req.body.email,
+        //         req.body.name,
+        //         req.body.type,
+        //         userId
+        //     ]);
+        // }
+
+        await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, req.body.type, null );
 
         res.json({
             success:true
@@ -96,12 +123,14 @@ export class UserController{
     static async updateProfile(req:any, res:any){
         const userId=req.params.id;
 
+
         console.log("Vartotojo profilis atnaujintas")
         console.log(req.body);
 
+        // http(req.protocol) + localhost +img + filename
         const url=req.protocol+"://"+req.get("host")+"/img/"+req.file.filename ;
 
-        UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.surname, req.body.password, req.body.phone, null, url );
+        UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, null, url );
         res.json({
             success:true
         });

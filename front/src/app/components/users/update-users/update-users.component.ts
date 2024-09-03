@@ -15,9 +15,11 @@ export class UpdateUsersComponent {
 // kintamieji kuriuos noresim redaguoti
   public id?:number;
   public name:String="";
+  public surname:String="";
   public email:String="";
   public password:String="";
   public type:number=0;
+  public phone:String="";
 
   constructor (private route:ActivatedRoute, private router:Router, private usersService:UsersService){
     // pasiimam id:
@@ -27,8 +29,10 @@ export class UpdateUsersComponent {
     this.usersService.getUser(this.id!).subscribe({
       next:(user)=>{
         this.name=user.name!;
+        this.surname=user.surname!;
         this.email=user.email;
         this.type=user.type!;
+        this.phone=user.phone!;
       }
     })
   }

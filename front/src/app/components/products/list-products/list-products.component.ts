@@ -22,11 +22,20 @@ private loadProducts(){
     });
   }
 
-  constructor (private productsService:ProductService, public authService:AuthService){
+  constructor (private productsService:ProductService, public authService:AuthService, private cartService: CartService){
     this.loadProducts();
   }
 
+  addToCart(product: Product): void {
+    console.log(product);
+    this.cartService.addToCart(product);
   }
+
+ 
+
+}
+
+  
 
 
 

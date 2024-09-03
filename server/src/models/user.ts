@@ -9,6 +9,6 @@ export interface User extends RowDataPacket{
     password:string
     type?:number;
     phone:string;
-   
 }
 
+ 

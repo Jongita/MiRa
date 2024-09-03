@@ -25,8 +25,9 @@
                     <a class="nav-link" routerLink="/auth/login" *ngIf="!isLoggedin">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/cart" *ngIf="isLoggedin">
+                    <a class="nav-link" routerLink="/cart">
                         <i class="fas fa-shopping-cart"></i>
+                        <span class="item">{{ cartItemCount }}</span>
                     </a>
                 </li>
                 <li class="nav-item">

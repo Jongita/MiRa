@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navigation',
@@ -14,8 +15,9 @@ import { CommonModule } from '@angular/common';
 export class NavigationComponent {
 
   public isLoggedin:boolean=false;
+  public cartItemCount:number=0;
 
-  constructor (public authService:AuthService, private router:Router){
+  constructor (public authService:AuthService, private router:Router, private cartService: CartService ){
     if (authService.isLoggedin()){
       this.isLoggedin=true;
     }else{
@@ -24,7 +26,18 @@ export class NavigationComponent {
     this.authService.onLoginStatusChange.subscribe((isLoggedin)=>{
       this.isLoggedin=isLoggedin;
     })
+    
   }
+// gauname kiek itemu yra krepselyje
+  ngOnInit(): void {
+    this.cartService.cartItems$.subscribe(items => {
+      this.cartItemCount = items.length;
+      console.log(this.cartItemCount);
+    });
+  }
+  
+  
+
 
   public logoutClick(){
     this.authService.logOut();

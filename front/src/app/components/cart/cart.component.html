@@ -1,3 +1,32 @@
 <div class="container mt-5">
-    <h2>Your Cart</h2>
+    <h2>Shopping Cart</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Picture</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of cartItems">
+                <td>{{item.name}}</td>
+                <td>{{item.imageUrl}}</td>
+                <td>
+                    <input type="number" min="1">
+                </td>
+                <td>${{item.price}}</td>
+                <td>${{item.price}}</td>
+                <td>
+                    <button class="btn btn-danger">Remove</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Total:</h3>
 </div>
+
+<!-- <input type="number" [(ngModel)]="item.quantity" (change)="updateCart(item, item.quantity)" min="1"> -->
