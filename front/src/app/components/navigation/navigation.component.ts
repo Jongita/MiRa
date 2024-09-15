@@ -30,15 +30,14 @@ export class NavigationComponent {
   }
 // gauname kiek itemu yra krepselyje
   ngOnInit(): void {
-    this.cartService.cartItems$.subscribe(items => {
-      this.cartItemCount = items.length;
+    // Subscribe to the cartItems$ observable
+    this.cartService.cartItems$.subscribe((items) => {
+      // Sum the quantities of all items to get the total count
+      this.cartItemCount = items.reduce((total, item) => total + item.quantity, 0);
       console.log(this.cartItemCount);
     });
   }
   
-  
-
-
   public logoutClick(){
     this.authService.logOut();
     this.isLoggedin=false;

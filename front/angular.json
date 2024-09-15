@@ -30,9 +30,7 @@
               "src/styles.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": [
-              "https://kit.fontawesome.com/a076d05399.js"
-            ],
+            "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {

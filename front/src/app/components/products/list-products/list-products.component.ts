@@ -12,30 +12,49 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
-export class ListProductsComponent {
-public products:Product[]=[];
+// export class ListProductsComponent {
+// public products:Product[]=[];
 
 
-private loadProducts(){
-    this.productsService.getProducts().subscribe((data)=>{
-      this.products=data;
-    });
-  }
+// private loadProducts(){
+//     this.productsService.getProducts().subscribe((data)=>{
+//       this.products=data;
+//     });
+//   }
 
-  constructor (private productsService:ProductService, public authService:AuthService, private cartService: CartService){
+//   constructor (private productsService:ProductService, public authService:AuthService, private cartService: CartService){
+//     this.loadProducts();
+//   }
+
+//   addToCart(product: Product): void {
+//     console.log(product);
+//     this.cartService.addToCart(product);
+//   }
+// }
+
+  export class ListProductsComponent {
+  public products: Product[] = [];
+
+  constructor(
+    private productsService: ProductService,
+    public authService: AuthService,
+    private cartService: CartService
+  ) {
     this.loadProducts();
   }
 
+  private loadProducts() {
+    this.productsService.getProducts().subscribe((data) => {
+      this.products = data;
+    });
+  }
+
   addToCart(product: Product): void {
-    console.log(product);
     this.cartService.addToCart(product);
   }
 
- 
-
-}
-
   
+}
 
 
 
