@@ -1,36 +1,37 @@
-<div class="card mt-3 shadow-lg" style="background-color: #f8f9fa; width: 50%; margin: auto;">
-    <div class="card-header text-white" style="background-color: #553759;">
-        User data
-    </div>
-    <div class="card-body">
-        <form action="" [formGroup]="profileForm" (ngSubmit)="onSubmitForm()">
-            <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter name" style="border-radius: 10px;">
+<div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="col-6 py-5" style="background-color: #553759;">
+        <div class="card card-registration card-registration-2" style="border-radius: 10px;">
+            <div class="card-body">
+                <form action="" [formGroup]="profileForm" (ngSubmit)="onSubmitForm()">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Enter name" style="border-radius: 10px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter e-mail" style="border-radius: 10px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Change Password</label>
+                        <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter new password" style="border-radius: 10px;">
+                    </div>
+                    <hr style="border-color: #553759;">
+                    <div class="my-3 text-center">
+                        <img [src]="imgPreview" alt="">
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-dark text-white shadow" type="button" (click)="profileImagePicker.click()" style="border-radius: 50px;">
+                            Upload picture
+                        </button>
+                        <input type="file" name="userImage" class="d-none" #profileImagePicker (change)="onProfileImageChange($event)">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark btn-block" style="border-radius: 20px;">
+                            Save changes
+                        </button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">E-mail</label>
-                <input type="email" id="email" class="form-control" formControlName="email" placeholder="Enter e-mail" style="border-radius: 10px;">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Change Password</label>
-                <input type="password" id="password" class="form-control" formControlName="password" placeholder="Enter password" style="border-radius: 10px;">
-            </div>
-            <hr style="border-color: #553759;">
-            <div class="my-3 text-center">
-                <img [src]="imgPreview" alt="">
-            </div>
-            <div class="d-flex justify-content-between align-items-center">
-                <button class="btn btn-dark text-white shadow" type="button" (click)="profileImagePicker.click()" style="border-radius: 50px;">
-                    Upload picture
-                </button>
-                <input type="file" name="userImage" class="d-none" #profileImagePicker (change)="onProfileImageChange($event)">
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-dark btn-block" style="border-radius: 20px;">
-                    Save changes
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
