@@ -1,0 +1,44 @@
+<section class="h-100 h-custom mt-3" style="background-color: #553759;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 10px;">
+                    <div class="container" style="padding: 80px;">
+                        <div class="row" *ngIf="product">
+                            <!-- Product Image -->
+                            <div class="col-md-6">
+                                <img [src]="product.imageUrl" class="img-fluid rounded-3 shadow" alt="{{ product.name }}">
+                            </div>
+
+                            <!-- Product Details -->
+                            <div class="col-md-6">
+                                <h2 class="fw-bold">{{ product?.name }}</h2>
+                                <h4 class="text-success fw-bold">${{ product.price }}</h4>
+                                <p class="text-muted">{{ product.description }}</p>
+
+                                <!-- Quantity Selector with Flexbox for Alignment -->
+                                <div class="mb-3">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                    <input type="number" id="quantity" class="form-control w-25" min="1" value="1" [(ngModel)]="quantity">
+                                </div>
+
+                                <!-- Add to Cart Button -->
+                                <button class="btn btn-dark btn-lg mt-3" (click)="addProductToCart(product)">
+                                    <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                                </button>
+                            </div>
+                            <div class="pt-5">
+                                <h6 class="mb-0">
+                                    <a routerLink="/product/list" class="text-body">
+                                        <i class="fas fa-long-arrow-alt-left me-2"></i>Back to shop
+                                    </a>
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

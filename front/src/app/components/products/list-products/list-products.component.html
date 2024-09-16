@@ -1,45 +1,32 @@
-<!-- <div class="row">
-    <nav class="navibar">
-        <p class="navi_links">
-            <a href="#">Metalas</a>
-            <a href="#">Medis</a>
-            <a href="#">Grindys</a>
-            <a href="#">Lauko sienos</a>
-            <a href="#">Kita</a>
-        </p>
-    </nav>
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <img class="card-img-top" src="assets/Logo.jpg" alt="Product Image">
-            <div class="card-body">
-                <h5 class="card-title">Metalo dažai Rust - Oleum GALVA ZINC - ALU</h5>
-                <p class="card-text">Cinko aliuminio gruntas ir dažai metalui, kuris suteikia katodinę apsaugą</p>
-                <small class="text-muted">12,08 €</small>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group float-right">
-                        <button type="button" class="btn btn-primary">
-                            <i class=" fas fa-shopping-cart"></i> Add to Cart
-                        </button>
-
-                    </div>
-                </div>
+<div class="homeComponent mt-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <app-filter-products></app-filter-products>
             </div>
-        </div>
-    </div>
-</div> -->
+            <div class="col-md-10">
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let product of products">
+                            <div class="card mb-4 position-relative" style="background-color: #f8f9fa; border: 2px solid #553759;"> <!-- Card Border Color -->
+                                <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}">
 
+                                <div class="card-body">
+                                    <h5 class="card-title">{{product.name}}</h5>
+                                    <p class="card-text">{{product.description}}</p>
+                                    <p class="card-text"><strong>${{product.price}}</strong></p>
 
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4" *ngFor="let product of products">
-            <div class="card mb-4">
-                <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{product.name}}</h5>
-                    <p class="card-text">{{product.description}}</p>
-                    <p class="card-text"><strong>${{product.price}}</strong></p>
-                    <button class="btn btn-primary" (click)="addToCart(product)">Add to Cart</button>
+                                    <!-- Buttons with gap -->
+                                    <button class="btn btn-dark btn-block me-2" (click)="addToCart(product)">
+                                        <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                                    </button>
+                                    <a class="btn btn-success" [routerLink]="['/products',product.id]" style="background-color: #553759; border-color: #553759;">
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

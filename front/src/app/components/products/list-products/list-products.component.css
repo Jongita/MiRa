@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
 @import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
 
-.snip1268 {
+/* .snip1268 {
     font-family: 'Raleway', Arial, sans-serif;
     position: relative;
     overflow: hidden;
@@ -133,4 +133,27 @@
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
+} */
+
+/* .heart-button {
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    color: grey;
+    outline: none;
+}
+
+.heart-button.liked {
+    color: black;
+}
+
+.heart-button i {
+    transition: color 0.3s;
+} */
+
+
+.card {
+    border: 2px solid #553759;
 }

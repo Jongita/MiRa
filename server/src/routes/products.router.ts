@@ -4,6 +4,7 @@ import { authMiddleware } from '../middlewares/auth.middleware';
 
 const productsRouter=express.Router();
 
-productsRouter.get("/", authMiddleware, ProductsController.getAllProducts)
+productsRouter.get("/", ProductsController.getAllProducts)
+productsRouter.get("/:id", ProductsController.getProduct)
 
 export {productsRouter};

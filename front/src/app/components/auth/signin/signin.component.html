@@ -1,7 +1,7 @@
 <div class="row mt-3">
     <div class="col-md-6 offset-md-3">
         <div class="card">
-            <div class="card-header">Registruotis į sistemą</div>
+            <div class="card-header text-white" style="background-color: #553759;">Registruotis į sistemą</div>
             <div class="card-body">
                 <form (ngSubmit)="onRegister(f)" #f="ngForm">
                     <div class="mb-3">
@@ -46,7 +46,7 @@
                             Slaptažodžiai nesutampa
                         </div>
                     </div>
-                    <button class="btn btn-success" [disabled]="!f.valid || !password || !passwordsMatch">Registruotis</button>
+                    <button class="btn btn-success" [disabled]="!f.valid || !password || !passwordsMatch">Sign In</button>
                 </form>
             </div>
         </div>

@@ -48,6 +48,22 @@ export class CartService {
     this.cartItems.next([...currentItems]);
   }
 
+  addProductToCart(product: Product, quantity: number) {
+    const currentItems = [...this.cartItems.value]; // Clone the array
+    const itemIndex = currentItems.findIndex(item => item.product.id === product.id);
+
+    if (itemIndex > -1) {
+      // If the product already exists, increase the quantity
+      currentItems[itemIndex].quantity += quantity;
+    } else {
+      // If the product is new, add it to the cart with the selected quantity
+      currentItems.push({ product: product, quantity: quantity });
+    }
+
+    // Emit the updated cart items
+    this.cartItems.next([...currentItems]);
+  }
+
   updateQuantity(productId: number, quantity: number): void {
     const currentItems = [...this.cartItems.value]; // Clone the array
     const itemIndex = currentItems.findIndex(item => item.product.id === productId);
@@ -66,9 +82,6 @@ export class CartService {
   removeItemFromCart(productId: number): void {
     const currentItems = [...this.cartItems.value]; // Create a clone of the array to avoid direct mutations
     const filteredItems = currentItems.filter(item => item.product.id !== productId);
-
-    console.log('Before:', currentItems);
-    console.log('After:', filteredItems);
 
     // Emit the updated cart items only if something was actually removed
     if (filteredItems.length !== currentItems.length) {

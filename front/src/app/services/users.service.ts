@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { map } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class UsersService {
     return this.http.get<User>('http://localhost:5998/users/'+id).pipe(
       map(
         (user)=>{
-          return new User(user.email, user.id, user.name, user.surname, user.password, user.type, user.phone, user.token);
+          return new User(user.email, user.id, user.name, user.surname, user.password, user.type, user.phone, user.token, user.img);
         })
       );
   }

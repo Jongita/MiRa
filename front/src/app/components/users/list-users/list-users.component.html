@@ -1,33 +1,37 @@
-<div class="card">
-    <div class="card-header">Vartotojų sąrašas</div>
+<div class="card mt-3" style="background-color: #553759;">
+    <!-- <div class="card-header">User list</div> -->
     <div class="card-body">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nr</th>
-                    <th>Nuotrauka</th>
-                    <th>Veiksmai</th>
-                    <th>El.pasto adresas</th>
-                    <th>Vardas</th>
-                    <th>Pavarde</th>
-                    <th>Tipas</th>
-                    <th>Telefonas</th>
-                    <th>Veiksmai</th>
+                    <th>No</th>
+                    <th>Picture</th>
+                    <th>Actions</th>
+                    <th>E-mail</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Type</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; let i=index;">
                     <td>{{ i+1 }}</td>
                     <td><img [src]="user.img" alt="" style="max-width: 100px;"></td>
-                    <td><a [href]="user.img" style="max-width: 100px;" class="btn btn-success">Parsiųsti </a></td>
+                    <td><a [href]="user.img" style="max-width: 100px;" class="btn btn-dark btn-block">Download</a></td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.surname }}</td>
                     <td>{{ user.getTypeName() }}</td>
                     <td>{{ user.phone }}</td>
                     <td>
-                        <a class="btn btn-success mx-3" [routerLink]="['/users',user.id]">Redaguoti</a>
-                        <a class="btn btn-danger" (click)="onDeleteClick(user.id!)">Ištrinti</a>
+                        <a class="btn btn-dark btn-sm mx-1" [routerLink]="['/users', user.id]">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm mx-1" (click)="onDeleteClick(user.id!)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                     </td>
                 </tr>
             </tbody>

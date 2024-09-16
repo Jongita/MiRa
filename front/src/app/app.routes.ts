@@ -8,12 +8,15 @@ import { viewGuard } from './guards/view.guard';
 import { ListUsersComponent } from './components/users/list-users/list-users.component';
 import { UpdateUsersComponent } from './components/users/update-users/update-users.component';
 import { ProfileComponent } from './components/users/profile/profile.component';
+import { ViewProductComponent } from './components/products/view-product/view-product.component';
 
 export const routes: Routes = [
     {
         path:"product/list",component:ListProductsComponent,
 
     },
+
+    {path: "products/:id", component:ViewProductComponent},
 
     {path: "auth/signin", component:SigninComponent},
     {path: "auth/login", component:LoginComponent},

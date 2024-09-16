@@ -4,11 +4,13 @@ import { ProductService } from '../../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
 import { AuthService } from '../../../services/auth.service';
+import { FilterProductsComponent } from '../filter-products/filter-products.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FilterProductsComponent, RouterLink],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
@@ -35,6 +37,8 @@ import { AuthService } from '../../../services/auth.service';
   export class ListProductsComponent {
   public products: Product[] = [];
 
+  likedProducts: any[] = [];
+
   constructor(
     private productsService: ProductService,
     public authService: AuthService,
@@ -49,12 +53,32 @@ import { AuthService } from '../../../services/auth.service';
     });
   }
 
+  // addToCart(product: Product): void {
+  //   this.cartService.addToCart(product);
+  // }
+
   addToCart(product: Product): void {
-    this.cartService.addToCart(product);
-  }
+    if (this.isLoggedIn()) {
+        this.cartService.addToCart(product);
+    } else {
+        this.showLoginMessage();
+    }
+}
+
+isLoggedIn(): boolean {
+    // Implement your logic to check if the user is logged in
+    // This might involve checking a service or local storage
+    return !!this.authService.user; // Example
+}
+
+showLoginMessage(): void {
+    // Implement your logic to display a login message
+    alert("Please log in to add items to your cart.");
 
   
 }
 
+ 
 
+  }
 

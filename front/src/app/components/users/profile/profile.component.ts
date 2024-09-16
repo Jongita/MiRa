@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { UsersService } from '../../../services/users.service';
 import { AuthService } from '../../../services/auth.service';
@@ -14,17 +14,19 @@ import { User } from '../../../models/user';
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
+
   public profileForm:FormGroup;
   public imgPreview:String|null=null;
+  
 
   constructor (private userService:UsersService, private authService:AuthService, private router:Router){
+   
     this.profileForm=new FormGroup({
       'name':new FormControl(null),
       'email':new FormControl(null),
       'password':new FormControl(null),
       'image':new FormControl(null)
     });
-  
     if (authService.user!=null && authService.user.id!=null){
       userService.getUser(authService.user.id).subscribe((user)=>{
        
