@@ -29,4 +29,6 @@ export class ProductService {
   public deleteProduct(id:number){
     return this.http.delete('http://localhost:5998/products/'+id);
   }
+
+
 }

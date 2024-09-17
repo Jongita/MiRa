@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-navigation',
@@ -16,6 +17,9 @@ export class NavigationComponent {
 
   public isLoggedin:boolean=false;
   public cartItemCount:number=0;
+
+  searchTerm: string = '';
+
 
   constructor (public authService:AuthService, private router:Router, private cartService: CartService ){
     if (authService.isLoggedin()){
@@ -43,5 +47,15 @@ export class NavigationComponent {
     this.isLoggedin=false;
     this.router.navigate(["/"]);
   }
+
+  onSearch(event: Event) {
+    event.preventDefault();
+    if (this.searchTerm.trim() === '') {
+      this.router.navigate(['/product/list'], { queryParams: {} }); // Clear search term
+    } else {
+      this.router.navigate(['/product/list'], { queryParams: { search: this.searchTerm } });
+    }
+  }
+
 
 }

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
+import { ProductService } from '../../../services/product.service';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-filter-products',

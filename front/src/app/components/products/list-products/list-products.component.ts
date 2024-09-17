@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
 import { AuthService } from '../../../services/auth.service';
 import { FilterProductsComponent } from '../filter-products/filter-products.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -37,12 +37,16 @@ import { RouterLink } from '@angular/router';
   export class ListProductsComponent {
   public products: Product[] = [];
 
-  likedProducts: any[] = [];
+  filteredProducts: Product[] = [];
+  searchTerm: string = '';
+
+
 
   constructor(
     private productsService: ProductService,
     public authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private route: ActivatedRoute
   ) {
     this.loadProducts();
   }
@@ -50,9 +54,26 @@ import { RouterLink } from '@angular/router';
   private loadProducts() {
     this.productsService.getProducts().subscribe((data) => {
       this.products = data;
+       this.filterProducts();
     });
   }
 
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params['search'] || '';
+      this.loadProducts();
+    });
+  }
+
+  filterProducts() {
+    if (this.searchTerm.trim() === '') {
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(product =>
+        product.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+  }
   // addToCart(product: Product): void {
   //   this.cartService.addToCart(product);
   // }
