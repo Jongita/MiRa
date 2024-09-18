@@ -6,13 +6,11 @@ import dotenv from "dotenv";
 
 export class AuthController{
     static async signin(req:any, res:any){
-        let name=req.body.name;
-        let surname=req.body.surname;
-        let email=req.body.email;
-        let phone=req.body.phone;
-        let password=req.body.password;
+        const name=req.body.name; 
+        const email=req.body.email;
+        let password:string=req.body.password;
 
-        password=await bcrypt.hash(password, 12)
+        password=await bcrypt.hash(password, 12);
 
         let sql="SELECT * FROM users WHERE email LIKE ?";
         const [result]=await pool.query<User[]>(sql,[email]);
@@ -22,9 +20,10 @@ export class AuthController{
             })
         }
 
-        sql="INSERT INTO users (name, surname, email, password, phone) VALUES (?, ?, ?, ?, ?)";
-        await pool.query(sql, [name, surname, email, password, phone]);
-        res.json({"status": "ok"})
+        sql="INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        await pool.query(sql, [name, email, password]);
+
+        res.json({"status":"ok"});
     }
 
     static async login(req:any, res:any){
@@ -35,16 +34,17 @@ export class AuthController{
         const [result]=await pool.query<User[]>(sql, [email])
         if (result.length!=1){
             return res.status(400).json({
-                'text': 'Vartotojas su tokiu el.paštu neegzistuoja'
+                'text': 'Vartotojas su tokiu el.pastu neegzistuoja'
             })
         }
         const user=result[0]
         let passwordOK = await bcrypt.compare(password, user.password);
         if(!passwordOK){
             return res.status(400).json({
-                'text': 'Įvestas neteisingas slaptažodis arba el.pašto adresas'
+                'text': 'Ivestas neteisingas slaptazodis arba el.pasto adresas'
             })
         }
+
         if (process.env.TOKEN_SECRET!=null){
             dotenv.config();
             let token=jwt.sign(
@@ -61,12 +61,12 @@ export class AuthController{
             // 'text': 'Viskas OK'
             'id': user.id,
             'name': user.name,
-            'surname': user.surname,
             'email':user.email,
-            'phone':user.phone,
-            'type':user.type,
             'token': token,
+            'type': user.type,
+            'img':user.img
         })
-    }
+            
+        }
     }
 }

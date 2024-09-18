@@ -42,11 +42,16 @@ export class NavigationComponent {
     });
   }
   
-  public logoutClick(){
-    this.authService.logOut();
-    this.isLoggedin=false;
-    this.router.navigate(["/"]);
-  }
+  public logoutClick() {
+  this.authService.logOut();
+  this.isLoggedin = false;
+  
+  // Clear the cart and local storage
+  this.cartService.clearCart(); // Add this method to the CartService
+  localStorage.clear(); // Clears all local storage items
+  
+  this.router.navigate(["/"]);
+}
 
   onSearch(event: Event) {
     event.preventDefault();

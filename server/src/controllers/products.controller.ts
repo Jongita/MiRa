@@ -1,6 +1,6 @@
 import { pool } from "../db/connect";
 import { Product } from "../models/product";
-
+import path from 'path';
 
 export class ProductsController{
     static async getAllProducts(req:any, res:any){
@@ -16,16 +16,74 @@ export class ProductsController{
         res.json(result[0]);
     }
 
-    static async filterProducts( req:any, res:any){
-        if (req.user.type>3){
+    // static async filterProducts( req:any, res:any){
+    //     if (req.user.type>3){
+    //         return res.status(400).json({
+    //             text:"Neturite teisiu"
+    //         })
+    //     }
+    //     const sql="SELECT * FROM products WHERE name like ?";
+    //     const [result]=await pool.query<Product[]>(sql, ["%"+req.params.filter+"%"]);
+    //     res.json(result);
+    // }
+
+    static async insert(req: any, res: any) {
+    if (isNaN(req.body.price)) {
+        return res.status(400).json({
+            'text': 'Kaina privalo būti skaičius'
+        });
+    }
+
+    // Handle file upload and URL construction
+    const file = req.file;
+    const userId = req.body.userId; 
+    const fileName = req.file.filename;
+
+    // Construct the image URL
+    const imageUrl = req.protocol+"://"+req.get("host")+"/img/"+req.file.filename ;
+
+    // Save file with new filename
+    const imagePath = path.join('img', fileName);
+
+    // SQL Query
+    const sql = "INSERT INTO products (name, price, imageUrl) VALUES (?, ?, ?)";
+    await pool.query(sql, [req.body.name, req.body.price, imageUrl]);
+
+    // Respond with success
+    res.status(201).json({
+        "success": true
+    });
+}
+    static async update(req:any, res:any){
+        const sql="UPDATE products SET name=?, price=?, description=? WHERE id=?";
+
+        if (isNaN(req.body.price)){
             return res.status(400).json({
-                text:"Neturite teisiu"
-            })
+                'text':'Kaina privalo būti skaičius'
+            });
         }
-        const sql="SELECT * FROM products WHERE name like ?";
-        const [result]=await pool.query<Product[]>(sql, ["%"+req.params.filter+"%"]);
-        res.json(result);
+        try{
+            await pool.query(sql, [req.body.name, req.body.price, req.body.description, req.body.id]);
+        
+            res.json({
+                "success":true
+            });
+        }catch(error){
+            res.status(500).json({
+                'text':'Įvyko atnaujinimo klaida'
+            });
+        }
+        
+    }
+
+    static async delete(req:any, res:any){
+        const sql="DELETE FROM products WHERE id=?";
+        await pool.query(sql, [req.params.id]);
+        res.json({
+            "success":true
+        })
     }
 
 
 }
+

@@ -1,9 +1,7 @@
-import { EventEmitter, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
-
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +10,14 @@ export class AuthService {
   public user:User|null=null;
   public onLoginStatusChange=new EventEmitter<boolean>
 
-  constructor(private httpClient:HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) { 
-    // Only execute if we're in a browser environment
-    if (isPlatformBrowser(this.platformId)) {
-      const user = localStorage.getItem("user");
-      if (user) {
-        this.user = JSON.parse(user);
-      }
+   constructor(private httpClient: HttpClient) {
+  if (typeof window !== 'undefined') {
+    const user = localStorage.getItem('user');
+    if (user !== null) {
+      this.user = JSON.parse(user);
     }
   }
+}
 
   public registerUser(user:User){
     console.log("registruojame nauja vartotoja");
@@ -42,6 +37,7 @@ export class AuthService {
     this.user=null;
     localStorage.removeItem("user");
     this.onLoginStatusChange.emit(false)
+    
   }
 
   public isLoggedin(){
@@ -59,6 +55,7 @@ export class AuthService {
   public canViewData(){
     return this.isLoggedin();
   }
+
 
 }
 

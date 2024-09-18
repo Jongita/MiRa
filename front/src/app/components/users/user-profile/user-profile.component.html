@@ -1,0 +1,21 @@
+<div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="col-6 py-5" style="background-color: #553759;">
+        <div class="card card-registration card-registration-2" style="border-radius: 10px;">
+
+            <div class="card-header">User</div>
+            <div class="card-body">
+                <img [src]="user?.img" alt="" class="img-fluid">
+                <hr>
+                <div>
+                    Name: <b> {{ user?.name }}</b>
+                </div>
+                <div>
+                    E-mail: <b> {{ user?.email }}</b>
+                </div>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-dark btn-block" routerLink="/profile/update">Update profile</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,6 +38,7 @@ export class UserController{
     static async updateUserRecord(id:any, email:any, name:any, password:any, type:any, fileURL:any){
         if (password!=''){
             const passwordHash=await bcrypt.hash(password, 12);
+            
 
             await pool.query("UPDATE users SET email=?, name=?, password=? WHERE id=? ",[
                 email,
@@ -127,12 +128,26 @@ export class UserController{
         console.log("Vartotojo profilis atnaujintas")
         console.log(req.body);
 
-        // http(req.protocol) + localhost +img + filename
-        const url=req.protocol+"://"+req.get("host")+"/img/"+req.file.filename ;
+         let url = null; // Default to null if no file is uploaded
+    if (req.file) {
+        // Only generate the URL if a file is uploaded
+        url = req.protocol + "://" + req.get("host") + "/img/" + req.file.filename;
+    }
 
-        UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, null, url );
-        res.json({
-            success:true
-        });
+    // Pass the file URL (or null) to the updateUserRecord function
+    await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, null, url);
+
+    res.json({
+        success: true
+    });
+
+
+        // http(req.protocol) + localhost +img + filename
+        // const url=req.protocol+"://"+req.get("host")+"/img/"+req.file.filename ;
+
+        // UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, null, url );
+        // res.json({
+        //     success:true
+        // });
     }
 }

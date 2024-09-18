@@ -29,63 +29,87 @@ import { CartItem } from '../models/cartItem';
 
 
 export class CartService {
-  private cartItems = new BehaviorSubject<{ product: Product, quantity: number }[]>([]);
+   private cartItems = new BehaviorSubject<{ product: Product, quantity: number }[]>([]);
   cartItems$ = this.cartItems.asObservable();
 
-  addToCart(product: Product) {
-    const currentItems = [...this.cartItems.value]; // Clone the array
-    const itemIndex = currentItems.findIndex(item => item.product.id === product.id);
+  constructor() {
+    // Load the cart from localStorage when the service is initialized
+    this.loadCartFromLocalStorage();
+  }
 
+  addToCart(product: Product) {
+    const currentItems = [...this.cartItems.value];
+    const itemIndex = currentItems.findIndex(item => item.product.id === product.id);
     if (itemIndex > -1) {
-      // If the product already exists, increase the quantity
       currentItems[itemIndex].quantity += 1;
     } else {
-      // If the product is new, add it to the cart with quantity 1
-      currentItems.push({ product: product, quantity: 1 });
+      currentItems.push({ product, quantity: 1 });
     }
-
-    // Emit the updated cart items
     this.cartItems.next([...currentItems]);
+    this.saveCartToLocalStorage();
   }
 
   addProductToCart(product: Product, quantity: number) {
-    const currentItems = [...this.cartItems.value]; // Clone the array
+    const currentItems = [...this.cartItems.value];
     const itemIndex = currentItems.findIndex(item => item.product.id === product.id);
-
     if (itemIndex > -1) {
-      // If the product already exists, increase the quantity
       currentItems[itemIndex].quantity += quantity;
     } else {
-      // If the product is new, add it to the cart with the selected quantity
-      currentItems.push({ product: product, quantity: quantity });
+      currentItems.push({ product, quantity });
     }
-
-    // Emit the updated cart items
     this.cartItems.next([...currentItems]);
+    this.saveCartToLocalStorage();
   }
 
   updateQuantity(productId: number, quantity: number): void {
-    const currentItems = [...this.cartItems.value]; // Clone the array
+    const currentItems = [...this.cartItems.value];
     const itemIndex = currentItems.findIndex(item => item.product.id === productId);
-
     if (itemIndex > -1) {
       if (quantity >= 0) {
-        // Update the quantity, even if it's 0
         currentItems[itemIndex].quantity = quantity;
       }
-
-      // Emit the updated cart items
       this.cartItems.next([...currentItems]);
+      this.saveCartToLocalStorage();
     }
   }
 
   removeItemFromCart(productId: number): void {
-    const currentItems = [...this.cartItems.value]; // Create a clone of the array to avoid direct mutations
+    const currentItems = [...this.cartItems.value];
     const filteredItems = currentItems.filter(item => item.product.id !== productId);
-
-    // Emit the updated cart items only if something was actually removed
     if (filteredItems.length !== currentItems.length) {
       this.cartItems.next(filteredItems);
+      this.saveCartToLocalStorage();
     }
   }
+
+  private saveCartToLocalStorage(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems.value));
+    }
+  }
+
+  // private loadCartFromLocalStorage(): void {
+  //   if (typeof window !== 'undefined' && window.localStorage) {
+  //     const savedCart = localStorage.getItem('cartItems');
+  //     if (savedCart) {
+  //       this.cartItems.next(JSON.parse(savedCart));
+  //     }
+  //   }
+  // }
+
+  private loadCartFromLocalStorage(): void {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      this.cartItems.next(JSON.parse(savedCart) || []);
+    } else {
+      this.cartItems.next([]); // Handle empty cart scenario
+    }
+  }
+}
+
+  clearCart(): void {
+  this.cartItems.next([]); // Clear the BehaviorSubject
+  this.saveCartToLocalStorage(); // Update local storage
+}
 }

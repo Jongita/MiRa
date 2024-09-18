@@ -29,10 +29,10 @@ export class UpdateUsersComponent {
     this.usersService.getUser(this.id!).subscribe({
       next:(user)=>{
         this.name=user.name!;
-        this.surname=user.surname!;
+        // this.surname=user.surname!;
         this.email=user.email;
         this.type=user.type!;
-        this.phone=user.phone!;
+        // this.phone=user.phone!;
       }
     })
   }

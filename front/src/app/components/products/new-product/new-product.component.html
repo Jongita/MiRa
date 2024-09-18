@@ -1,0 +1,25 @@
+<div class="card mt-3">
+    <div class="card-header">Pridėti naują prekę</div>
+    <div class="card-body">
+        <form (ngSubmit)="productSubmit(f)" #f="ngForm" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="name" ngModel minlength="2" maxlength="64" required #inputName="ngModel">
+            </div>
+            <div *ngIf="!inputName.valid && inputName.touched">Įvestas blogas pavadinimas</div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Kaina</label>
+                <input type="text" class="form-control" name="price" ngModel>
+            </div>
+
+            <!-- Add image file input -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Įkelti nuotrauką</label>
+                <input type="file" class="form-control" name="image" (change)="onFileSelected($event)" accept="image/*">
+            </div>
+
+            <button class="btn btn-success" type="submit">Pridėti</button>
+        </form>
+    </div>
+</div>

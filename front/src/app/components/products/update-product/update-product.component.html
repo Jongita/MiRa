@@ -1,0 +1,31 @@
+<div class="card mt-3">
+    <div class="card-header">Atnaujinti prekę</div>
+    <div class="card-body">
+        <form (ngSubmit)="productSubmit(f)" #f="ngForm">
+            <div class="mb-3">
+                <!-- Binding the img tag's src attribute to imageUrl -->
+                <img [src]="imageUrl" alt="Product Image" class="img-fluid" style="max-width: 200px;">
+            </div>
+            <div class="my-3">
+                <img [src]="imgPreview" alt="">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="name" ngModel [(ngModel)]="name">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Description</label>
+                <input type="text" class="form-control" name="description" ngModel [(ngModel)]="description">
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Kaina</label>
+                <input type="number" class="form-control" name="price" ngModel [(ngModel)]="price">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info" type="button">Įkelti paveikslėlį</button>
+                <input type="file" name="newImage" #imagePicker (change)="onImageChange($event)">
+            </div>
+            <button class="btn btn-dark" type="submit">Atnaujinti</button>
+        </form>
+    </div>
+</div>
