@@ -4,7 +4,8 @@ export class User{
     public email:string,
     public id?:number,
     public name?:string,
- 
+    public surname?:string,
+    public phone?:string,
     public password?:string,
     public type?:number,
     public token?:string,
@@ -14,13 +15,13 @@ export class User{
     public getTypeName():String{
         switch (this.type){
             case 0:
-                return "Super administratorius"
+                return "Super admin"
             case 1:
-                return "Administratorius";
+                return "Admin";
             case 2: 
-                return "Vartotojas";
+                return "User";
         }
-        return "Nezinomas";   
+        return "Unknown";   
 
 }
 }

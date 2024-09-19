@@ -9,9 +9,9 @@
                     <th>Actions</th>
                     <th>E-mail</th>
                     <th>Name</th>
-                    <!-- <th>Surname</th> -->
+                    <th>Surname</th>
                     <th>Type</th>
-                    <!-- <th>Phone</th> -->
+                    <th>Phone</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -22,9 +22,9 @@
                     <td><a [href]="user.img" style="max-width: 100px;" class="btn btn-dark btn-block">Download</a></td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.name }}</td>
-                    <!-- <td>{{ user.surname }}</td> -->
+                    <td>{{ user.surname }}</td>
                     <td>{{ user.getTypeName() }}</td>
-                    <!-- <td>{{ user.phone }}</td> -->
+                    <td>{{ user.phone }}</td>
                     <td>
                         <a class="btn btn-dark btn-sm mx-1" [routerLink]="['/users', user.id]">
                             <i class="fas fa-edit"></i>

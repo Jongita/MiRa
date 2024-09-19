@@ -35,21 +35,25 @@ export class UserController{
         }
     }
 
-    static async updateUserRecord(id:any, email:any, name:any, password:any, type:any, fileURL:any){
+    static async updateUserRecord(id:any, email:any, name:any, surname:any, phone:any, password:any, type:any, fileURL:any){
         if (password!=''){
             const passwordHash=await bcrypt.hash(password, 12);
             
 
-            await pool.query("UPDATE users SET email=?, name=?, password=? WHERE id=? ",[
+            await pool.query("UPDATE users SET email=?, name=?, surname=?, phone=?, password=? WHERE id=? ",[
                 email,
                 name,
+                surname,
+                phone,
                 passwordHash,
                 id
             ]);
         }else{
-            await pool.query("UPDATE users SET email=?, name=? WHERE id=? ",[
+            await pool.query("UPDATE users SET email=?, name=?, surname=?, phone=? WHERE id=? ",[
                 email,
                 name,
+                surname,
+                phone,
                 id
             ]);
         }
@@ -106,7 +110,7 @@ export class UserController{
         //     ]);
         // }
 
-        await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, req.body.type, null );
+        await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.surname, req.body.phone, req.body.password, req.body.type, null );
 
         res.json({
             success:true
@@ -135,7 +139,7 @@ export class UserController{
     }
 
     // Pass the file URL (or null) to the updateUserRecord function
-    await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.password, null, url);
+    await UserController.updateUserRecord(userId, req.body.email, req.body.name, req.body.surname, req.body.phone, req.body.password, null, url);
 
     res.json({
         success: true

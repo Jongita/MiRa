@@ -20,6 +20,8 @@ export class ProfileComponent {
   constructor (private userService:UsersService, private authService:AuthService, private router:Router){
     this.profileForm=new FormGroup({
       'name':new FormControl(null),
+      'surname':new FormControl(null),
+      'phone':new FormControl(null),
       'email':new FormControl(null),
       'password':new FormControl(null),
       'image':new FormControl(null)
@@ -30,6 +32,8 @@ export class ProfileComponent {
        
         this.profileForm.setValue({
           name:user.name,
+          surname:user.surname,
+          phone:user.phone,
           email:user.email,
           password:"",
           image:null
@@ -46,7 +50,7 @@ export class ProfileComponent {
 
 
     // this.userService.updateUser(new User(values.email, this.authService.user!.id, values.name, values.password )).subscribe((result)=>{
-    this.userService.updateUserAndPhoto(new User(values.email, this.authService.user!.id, values.name, values.password ), values.image).subscribe((result)=>{
+    this.userService.updateUserAndPhoto(new User(values.email, this.authService.user!.id, values.name, values.surname, values.phone, values.password ), values.image).subscribe((result)=>{
       this.router.navigate(['profile']);
     });
 

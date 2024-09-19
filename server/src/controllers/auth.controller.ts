@@ -7,7 +7,10 @@ import dotenv from "dotenv";
 export class AuthController{
     static async signin(req:any, res:any){
         const name=req.body.name; 
+        const surname=req.body.surname; 
+        const phone=req.body.phone; 
         const email=req.body.email;
+       
         let password:string=req.body.password;
 
         password=await bcrypt.hash(password, 12);
@@ -20,8 +23,8 @@ export class AuthController{
             })
         }
 
-        sql="INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-        await pool.query(sql, [name, email, password]);
+        sql="INSERT INTO users (name, surname, phone, email, password) VALUES (?, ?, ?)";
+        await pool.query(sql, [name, surname, phone, email, password]);
 
         res.json({"status":"ok"});
     }
@@ -61,6 +64,8 @@ export class AuthController{
             // 'text': 'Viskas OK'
             'id': user.id,
             'name': user.name,
+            'surname': user.surname,
+            'phone': user.phone,
             'email':user.email,
             'token': token,
             'type': user.type,

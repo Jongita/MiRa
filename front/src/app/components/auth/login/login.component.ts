@@ -14,8 +14,8 @@ import { ErrorService } from '../../../services/error.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  // public isError = false;
-  // public errorText="";
+  public isError = false;
+  public errorText="";
 
   constructor (
     private authService:AuthService, 
@@ -33,8 +33,8 @@ export class LoginComponent {
       error: (error)=>{
       this.errorService.errorEmitter.emit(error.error.text)
       console.log(error.error.text);
-      // this.isError=true;
-      // this.errorText=error.error.text
+      this.isError=true;
+      this.errorText=error.error.text
       }
     })
   }
