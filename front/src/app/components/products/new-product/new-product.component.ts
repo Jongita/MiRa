@@ -15,7 +15,7 @@ import { ErrorService } from '../../../services/error.service';
   styleUrl: './new-product.component.css'
 })
 export class NewProductComponent {
- selectedFile: File | null = null;
+  selectedFile: File | null = null;
 
   constructor(private productsService: ProductService, private router: Router, private errorService: ErrorService) {}
 

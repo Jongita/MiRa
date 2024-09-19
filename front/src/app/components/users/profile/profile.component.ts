@@ -43,18 +43,36 @@ export class ProfileComponent {
     }
   }
 
-  public onSubmitForm(){
-    const values=this.profileForm.value;
-    console.log(values);
-    // user servise atnaujinam vartotoja:
+  public onSubmitForm() {
+  const values = this.profileForm.value;
+  
+  this.userService.updateUserAndPhoto(new User(
+    values.email, 
+    this.authService.user!.id, 
+    values.name, 
+    values.surname, 
+    values.phone, 
+    values.password
+  ), values.image).subscribe((result) => {
+    
+    // Update AuthService user object with new data
+    this.authService.user!.name = values.name;
+    this.authService.user!.surname = values.surname;
+    this.authService.user!.phone = values.phone;
+    this.authService.user!.email = values.email;
+    
+    // If the password was updated, also update it
+    if (values.password) {
+      this.authService.user!.password = values.password;
+    }
 
+    // Update localStorage to reflect the new data
+    localStorage.setItem("user", JSON.stringify(this.authService.user));
 
-    // this.userService.updateUser(new User(values.email, this.authService.user!.id, values.name, values.password )).subscribe((result)=>{
-    this.userService.updateUserAndPhoto(new User(values.email, this.authService.user!.id, values.name, values.surname, values.phone, values.password ), values.image).subscribe((result)=>{
-      this.router.navigate(['profile']);
-    });
-
-  }
+    // Redirect after successful update
+    this.router.navigate(['profile']);
+  });
+}
   
   // funkcija kuri atvaizduoja paveiksliuka 
   public onProfileImageChange(event:Event){

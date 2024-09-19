@@ -23,7 +23,7 @@ export class AuthController{
             })
         }
 
-        sql="INSERT INTO users (name, surname, phone, email, password) VALUES (?, ?, ?)";
+        sql="INSERT INTO users (name, surname, phone, email, password) VALUES (?, ?, ?, ?, ?)";
         await pool.query(sql, [name, surname, phone, email, password]);
 
         res.json({"status":"ok"});

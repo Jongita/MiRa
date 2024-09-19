@@ -1,59 +1,82 @@
-<div class="row d-flex justify-content-center align-items-start mt-3">
+<div class="container-fluid d-flex flex-column min-vh-100">
     <!-- User Profile Section -->
-    <div class="col-12 col-md-4 py-5" style="background-color: #553759;">
-        <div class="card card-registration card-registration-2" style="border-radius: 10px;">
-            <div class="card-header">User Profile</div>
-            <div class="card-body">
-                <img [src]="user?.img" alt="User Image" class="img-fluid" style="max-width: 200px;">
-                <hr>
-                <div>
-                    Name: <b>{{ user?.name }}</b>
+    <div class="row d-flex flex-column flex-grow-1">
+        <div class="col-12 py-5" style="background-color: #553759;">
+            <div class="card card-registration card-registration-2" style="border-radius: 10px;">
+                <div class="card-header">User Profile</div>
+                <div class="card-body p-4">
+                    <h6>Information</h6>
+                    <hr class="mt-0 mb-4">
+                    <div class="row d-flex align-items-center">
+                        <!-- User Image on the Left -->
+                        <div class="col-auto me-4">
+                            <img [src]="user?.img" alt="User Image" class="img-fluid" style="max-width: 200px; border-radius: 50%; border: 2px solid #fff;">
+                        </div>
+                        <!-- User Information on the Right -->
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <h6>Name</h6>
+                                    <p class="text-muted">{{ user?.name }}</p>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h6>Surname</h6>
+                                    <p class="text-muted">{{ user?.surname }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 mb-3">
+                                    <h6>Email</h6>
+                                    <p class="text-muted">{{ user?.email }}</p>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <h6>Phone</h6>
+                                    <p class="text-muted">{{ user?.phone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-3">
                 </div>
-                <div>
-                    Surname: <b>{{ user?.surname }}</b>
-                </div>
-                <div>
-                    Email: <b>{{ user?.email }}</b>
-                </div>
-                <div>
-                    Phone: <b>{{ user?.phone }}</b>
+                <!-- Update Profile Button -->
+                <div class="card-body">
+                    <a class="btn btn-dark btn-block" routerLink="/profile/update">Update Profile</a>
                 </div>
             </div>
-            <div class="card-body">
-                <a class="btn btn-dark btn-block" routerLink="/profile/update">Update Profile</a>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="col-12 mt-3 flex-grow-1">
+            <div *ngIf="orders.length > 0">
+                <h3>Your Orders</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Image</th>
+                            <th>Order Date</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders; let i = index;">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                                <img [src]="order.imageUrl" alt="Product Image" style="max-width: 100px; height: auto;">
+                            </td>
+                            <td>{{ order.order_date | date: 'short' }}</td>
+                            <td>{{ order.name }}</td>
+                            <td>{{ order.count }}</td>
+                            <td>{{ order.description }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
-    <!-- Orders Section -->
-    <div class="col-12 col-md-8 mt-3">
-        <div *ngIf="orders.length > 0">
-            <h3>Your Orders</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Order ID</th>
-                        <th>Order Date</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Quantity</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let order of orders; let i = index;">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ order.order_id }}</td>
-                        <td>{{ order.order_date | date: 'short' }}</td>
-                        <td>{{ order.name }}</td>
-                        <td>{{ order.count }}</td>
-                        <td>{{ order.description }}</td>
-                        <td>{{ order.imageUrl }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div *ngIf="orders.length === 0">
-            <p>No orders found for this user.</p>
+            <div *ngIf="orders.length === 0">
+                <p>No orders found for this user.</p>
+            </div>
         </div>
     </div>
 </div>

@@ -1,110 +1,15 @@
-.footer {
+/* .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    background-color: #E2BDF21C;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
- 
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
 
-.footerContainer {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
- 
-    margin-top: 50px;
-}
-
-.footerContent {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.socialMediaContainer {
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: start;
-}
-
-.socialMedia {
-    margin-left: 50px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.footerLogo {
-    width: 150px;
-}
-
-.footerText {
-    width: 50%;
-}
-
-.footerFollow {
-    font-weight: 600;
-}
-
-.socialMediaIcons {
-    display: flex;
-    gap: 20px;
-}
-
-.socialMediaIcons img {
-    width: 30px;
-}
-
-.footerTableContainer {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
-.footerTableContainer table {
-    width: 100%;
-}
-
-.footerTableContainer table thead th,
-tbody td {
-    width: 33%;
-    text-align: start;
-}
-
-.footerTableContainer tbody td {
-    color: #60267f;
-}
-
-.footerTableContainer thead th {
-    padding-bottom: 10px;
-}
-
-.footerTableContactUs {
-    display: flex;
-    justify-content: flex-start;
-    gap: 30px;
-}
-
-.footerTableContactUs p {
-    font-weight: 500;
-}
-
-.footerTableContactUs span {
-    font-weight: 500;
-    color: #60267f;
-}
-
-.lastLine {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    background-color: #60267f;
-    color: white;
-    font-weight: 200;
-    width: 100%;
-}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+} */

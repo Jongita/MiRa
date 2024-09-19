@@ -1,39 +1,44 @@
-<div class="card mt-3">
-    <div class="card-header">Redaguoti vartotoją</div>
-    <div class="card-body">
-        <form (ngSubmit)="userSubmit(f)" #f="ngForm">
-            <div class="mb-3">
-                <label for="" class="form-label">Vardas</label>
-                <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Pavarde</label>
-                <input type="text" class="form-control" name="surname" value="" ngModel [(ngModel)]="surname">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">El. pašto adresas</label>
-                <input type="text" class="form-control" name="email" value="" ngModel [(ngModel)]="email">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Slaptažodis</label>
-                <input type="password" class="form-control" name="password" value="" ngModel [(ngModel)]="password">
-            </div>
+<div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="col-6 py-5" style="background-color: #553759;">
+        <div class="card card-registration card-registration-2" style="border-radius: 10px;">
 
-            <div class="mb-3">
-                <label for="" class="form-label">Tipas</label>
-                <select class="form-control" name="type" ngModel [(ngModel)]="type">
-                    <option value="0">Super administratorius</option>
-                    <option value="1">Administratorius</option>
-                    <option value="2">Vartotojas</option>
-                </select>
+            <div class="card-header">Update User Data</div>
+            <div class="card-body">
+                <form (ngSubmit)="userSubmit(f)" #f="ngForm">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" value="" ngModel [(ngModel)]="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Surname</label>
+                        <input type="text" class="form-control" name="surname" value="" ngModel [(ngModel)]="surname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">E-mail</label>
+                        <input type="text" class="form-control" name="email" value="" ngModel [(ngModel)]="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" value="" ngModel [(ngModel)]="password">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Type</label>
+                        <select class="form-control" name="type" ngModel [(ngModel)]="type">
+                            <option value="0">Admin</option>
+                            <option value="2">User</option>
+                        </select>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Phone</label>
+                        <input type="text" class="form-control" name="phone" value="" ngModel [(ngModel)]="phone">
+                    </div>
+                    <button class="btn btn-dark" type="submit">Update User</button>
+                </form>
+
 
             </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Telefonas</label>
-                <input type="text" class="form-control" name="phone" value="" ngModel [(ngModel)]="phone">
-            </div>
-            <button class="btn btn-success" type="submit">Atnaujinti</button>
-        </form>
-
+        </div>
     </div>
 </div>
