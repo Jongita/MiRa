@@ -1,15 +1,18 @@
-<section class="checkout">
+<section class="checkout mt-3">
     <div *ngIf="cartItems.length > 0; else emptyCart">
-        <h2>Your Cart</h2>
+        <h2>Checkout information</h2>
 
         <!-- User Information -->
         <div *ngIf="user" class="user-info mb-3">
             <h4>User Information</h4>
             <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Surname:</strong> {{ user.surname }}</p>
+            <p><strong>Phone:</strong> {{ user.phone }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
         </div>
 
         <!-- Table with items and small images -->
+        <h4>Cart Information</h4>
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -39,11 +42,11 @@
             <h3>Total Price (incl. shipping): €{{ totalPrice + shippingCost }}</h3>
         </div>
 
-        <!-- Optional: Add checkout button -->
-        <button class="btn btn-primary mt-3">Proceed to Checkout</button>
+        <!-- Checkout button -->
+        <button class="btn btn-primary mt-3" (click)="submitOrder()">Proceed to Checkout</button>
     </div>
 
     <ng-template #emptyCart>
-        <p>Your cart is empty.</p>
+        <p>Your cart is empty. Please add products to your cart.</p>
     </ng-template>
 </section>

@@ -1,0 +1,49 @@
+<div class="card mt-3" style="background-color: #553759;">
+
+    <!-- <div class="card-header">Order list</div> -->
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order No.</th>
+                    <th>User email</th>
+                    <th>Products</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders; let i=index">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.name }} {{order.email}}</td>
+                    <td>
+                        <table class="table" *ngIf="order.products!=null">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of order.products; let y=index">
+                                    <td>
+                                        {{ product.name }}
+                                    </td>
+                                    <td>
+                                        {{ product.price }} EUR
+                                    </td>
+                                    <td>
+                                        {{ product.count }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" (click)="deleteOrder(order.id)"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -15,6 +15,8 @@ import { NewProductComponent } from './components/products/new-product/new-produ
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { adminGuard } from './guards/admin.guard';
 import { CartCheckoutComponent } from './components/cart/cart-checkout/cart-checkout.component';
+import { ListOrdersComponent } from './components/orders/list-orders/list-orders.component';
+import { AboutComponent } from './components/about/about.component';
 
 export const routes: Routes = [
     {path:"product/list",component:ListProductsComponent},
@@ -48,6 +50,11 @@ export const routes: Routes = [
      {path: "cart/checkout", component:CartCheckoutComponent
     },
 
+    {   
+        path:"orders/list",component:ListOrdersComponent,
+        canActivate:[adminGuard]
+    },
+
     {
         path:"users/list", component:ListUsersComponent,
        canActivate:[adminGuard]
@@ -61,6 +68,11 @@ export const routes: Routes = [
     {
         path:"profile",
         component:UserProfileComponent
+    },
+
+      {
+        path:"about",
+        component:AboutComponent
     },
 
       {

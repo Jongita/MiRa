@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from '../../../models/user';
 import { AuthService } from '../../../services/auth.service';
+import { OrderService } from '../../../services/order.service';
+import { Order } from '../../../models/order';
 
 @Component({
   selector: 'app-cart-checkout',
@@ -15,28 +17,26 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './cart-checkout.component.html',
   styleUrl: './cart-checkout.component.css'
 })
-export class CartCheckoutComponent implements OnInit, OnDestroy {
-  cartItems: { product: Product, quantity: number }[] = [];
+export class CartCheckoutComponent implements OnInit, OnDestroy{
+   cartItems: { product: Product, quantity: number }[] = [];
   private cartSubscription: Subscription;
   totalPrice: number = 0;
   shippingCost: number = 5;
-  user: User | null = null; // Store user data
+  user: User | null = null;
 
   constructor(
     private cartService: CartService,
-    private authService: AuthService // Inject AuthService to get user details
+    private authService: AuthService,
+    private orderService: OrderService // Inject OrdersService
   ) {
     this.cartSubscription = new Subscription();
   }
 
   ngOnInit(): void {
-    // Fetch cart items
     this.cartSubscription = this.cartService.cartItems$.subscribe(items => {
       this.cartItems = items;
       this.calculateTotalPrice();
     });
-
-    // Fetch user details from AuthService
     this.user = this.authService.user; 
   }
 
@@ -46,10 +46,38 @@ export class CartCheckoutComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Calculate the total price of items in the cart
   calculateTotalPrice(): void {
     this.totalPrice = this.cartItems.reduce((sum, item) => {
       return sum + (item.product.price * item.quantity);
     }, 0);
+  }
+
+  // Method to submit the order
+  submitOrder(): void {
+    if (this.user) {
+      const order: Order = {
+        name: this.user.name!,
+        email: this.user.email,
+        id: this.user.id,
+        order_date: new Date(),
+        products: this.cartItems.map(item => ({
+          productId: item.product.id,
+          count: item.quantity,
+          name: item.product.name,
+          price: item.product.price
+        }))
+      };
+       console.log('Order object:', order); // Log order object
+       
+      this.orderService.addOrder(order).subscribe(response => {
+        console.log('Order submitted successfully', response);
+        console.log(order)
+        // Optionally clear cart or navigate to another page
+      }, error => {
+        console.error('Error submitting order', error);
+      });
+    } else {
+      console.error('User not logged in');
+    }
   }
 }
