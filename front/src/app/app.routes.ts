@@ -17,6 +17,7 @@ import { adminGuard } from './guards/admin.guard';
 import { CartCheckoutComponent } from './components/cart/cart-checkout/cart-checkout.component';
 import { ListOrdersComponent } from './components/orders/list-orders/list-orders.component';
 import { AboutComponent } from './components/about/about.component';
+import { OrderSuccessComponent } from './components/orders/order-success/order-success.component';
 
 export const routes: Routes = [
     {path:"product/list",component:ListProductsComponent},
@@ -53,6 +54,11 @@ export const routes: Routes = [
     {   
         path:"orders/list",component:ListOrdersComponent,
         canActivate:[adminGuard]
+    },
+
+    {   
+        path:"orders/success",component:OrderSuccessComponent,
+        canActivate:[viewGuard]
     },
 
     {

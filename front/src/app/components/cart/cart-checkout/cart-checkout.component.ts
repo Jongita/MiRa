@@ -9,6 +9,7 @@ import { User } from '../../../models/user';
 import { AuthService } from '../../../services/auth.service';
 import { OrderService } from '../../../services/order.service';
 import { Order } from '../../../models/order';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-cart-checkout',
@@ -27,6 +28,8 @@ export class CartCheckoutComponent implements OnInit, OnDestroy{
   constructor(
     private cartService: CartService,
     private authService: AuthService,
+    private errorService: ErrorService,
+    private router: Router,
     private orderService: OrderService // Inject OrdersService
   ) {
     this.cartSubscription = new Subscription();
@@ -54,30 +57,50 @@ export class CartCheckoutComponent implements OnInit, OnDestroy{
 
   // Method to submit the order
   submitOrder(): void {
-    if (this.user) {
-      const order: Order = {
-        name: this.user.name!,
-        email: this.user.email,
-        id: this.user.id,
-        order_date: new Date(),
-        products: this.cartItems.map(item => ({
-          productId: item.product.id,
-          count: item.quantity,
-          name: item.product.name,
-          price: item.product.price
-        }))
-      };
-       console.log('Order object:', order); // Log order object
-       
-      this.orderService.addOrder(order).subscribe(response => {
-        console.log('Order submitted successfully', response);
-        console.log(order)
-        // Optionally clear cart or navigate to another page
-      }, error => {
-        console.error('Error submitting order', error);
-      });
-    } else {
-      console.error('User not logged in');
-    }
+  if (this.user) {
+    const order: Order = {
+      name: this.user.name!,
+      email: this.user.email,
+      id: this.user.id,
+      order_date: new Date(),
+      products: this.cartItems.map(item => ({
+        productId: item.product.id,
+        count: item.quantity,
+        name: item.product.name,
+        price: item.product.price
+      }))
+    };
+
+    console.log('Order object:', order); // Log order object
+
+    this.orderService.addOrder(order).subscribe(response => {
+      console.log('Order submitted successfully', response);
+      console.log(order);
+      this.cartService.clearCart(); // Clear the cart after successful order submission
+      this.router.navigate(['orders', 'success']);
+    }, error => {
+      console.error('Error submitting order', error);
+    });
+  } else {
+    console.error('User not logged in');
   }
 }
+}
+
+// this.orderService.addOrder(order).subscribe(response => {
+//       console.log('Order submitted successfully', response);
+//       this.cartService.clearCart(); // Clear the cart after successful order submission
+      
+//       // Emit a success message using ErrorService
+//       this.errorService.errorEmitter.emit("Order placed successfully!"); 
+      
+//     }, error => {
+//       console.error('Error submitting order', error);
+//       // Emit an error message in case of failure
+//       this.errorService.errorEmitter.emit("Error placing the order. Please try again.");
+//     });
+//   } else {
+//     console.error('User not logged in');
+//   }
+// }
+// }

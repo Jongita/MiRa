@@ -6,7 +6,8 @@
             <thead>
                 <tr>
                     <th>Order No.</th>
-                    <th>User email</th>
+                    <th>User name</th>
+                    <th>User e-mail</th>
                     <th>Products</th>
                     <th>Action</th>
                 </tr>
@@ -14,7 +15,8 @@
             <tbody>
                 <tr *ngFor="let order of orders; let i=index">
                     <td>{{ order.id }}</td>
-                    <td>{{ order.name }} {{order.email}}</td>
+                    <td>{{ order.name }}</td>
+                    <td>{{ order.email }}</td>
                     <td>
                         <table class="table" *ngIf="order.products!=null">
                             <thead>

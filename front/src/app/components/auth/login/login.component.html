@@ -6,22 +6,22 @@
                 <div class="card-body">
                     <form (ngSubmit)="onLogin(f)" #f="ngForm">
                         <div class="mb-3">
-                            <label class="form-label" for="">El.pašto adresas</label>
+                            <label class="form-label" for="">E-mail</label>
                             <input type="text" name="email" class="form-control" [class.is-invalid]="!inputemail.valid && inputemail.touched" ngModel required maxlength="64" email #inputemail="ngModel">
                             <div class="helper-block " *ngIf="!inputemail.valid && inputemail.touched">
-                                Elektroninis paštas yra privalomas, turi būti pateiktas validus adresas
+                                Email is mandatory, a valid address must be provided
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="">Slaptažodis</label>
+                            <label class="form-label" for="">Password</label>
                             <input type="password" name="password" class="form-control" [class.is-invalid]="!inputpassword.valid && inputpassword.touched" ngModel required minlength="6" #inputpassword="ngModel">
                             <div class="helper-block " *ngIf="!inputpassword.valid && inputpassword.touched">
-                                Slaptažodis yra privalomas ir turi būti ne mažiau nei 6 simboliai
+                                Password is mandatory and must be at least 6 characters long
                             </div>
                         </div>
-                        <button class="btn btn-success mt-3" [disabled]="!f.valid">Prisijungti</button>
+                        <button class="btn btn-dark mt-3" [disabled]="!f.valid">Login</button>
                     </form>
-                    <p class="mb-5 pb-lg-2 mt-4">Neturi prisijungimo? <a href="/auth/signin">Registruokis čia</a></p>
+                    <p class="mb-5 pb-lg-2 mt-4">Don't have an account? <a href="/auth/signin">Register here</a></p>
                 </div>
             </div>
         </div>
