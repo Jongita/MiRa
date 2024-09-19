@@ -30,7 +30,7 @@ export class ProductsController{
     static async insert(req: any, res: any) {
     if (isNaN(req.body.price)) {
         return res.status(400).json({
-            'text': 'Kaina privalo būti skaičius'
+            'text': 'The price must be a number'
         });
     }
 
@@ -46,8 +46,8 @@ export class ProductsController{
     const imagePath = path.join('img', fileName);
 
     // SQL Query
-    const sql = "INSERT INTO products (name, price, imageUrl) VALUES (?, ?, ?)";
-    await pool.query(sql, [req.body.name, req.body.price, imageUrl]);
+    const sql = "INSERT INTO products (name, price, description, imageUrl, category, stock, specification) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    await pool.query(sql, [req.body.name, req.body.price, req.body.description, imageUrl, req.body.category, req.body.stock, req.body.specification]);
 
     // Respond with success
     res.status(201).json({
@@ -55,22 +55,22 @@ export class ProductsController{
     });
 }
     static async update(req:any, res:any){
-        const sql="UPDATE products SET name=?, price=?, description=? WHERE id=?";
+        const sql="UPDATE products SET name=?, price=?, description=?, category=?, stock=?, specification=? WHERE id=?";
 
         if (isNaN(req.body.price)){
             return res.status(400).json({
-                'text':'Kaina privalo būti skaičius'
+                'text':'The price must be a number'
             });
         }
         try{
-            await pool.query(sql, [req.body.name, req.body.price, req.body.description, req.body.id]);
+            await pool.query(sql, [req.body.name, req.body.price, req.body.description, req.body.category, req.body.stock, req.body.id]);
         
             res.json({
                 "success":true
             });
         }catch(error){
             res.status(500).json({
-                'text':'Įvyko atnaujinimo klaida'
+                'text':'An update error occurred'
             });
         }
         

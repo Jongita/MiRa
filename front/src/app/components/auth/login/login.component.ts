@@ -17,7 +17,11 @@ export class LoginComponent {
   // public isError = false;
   // public errorText="";
 
-  constructor (private authService:AuthService, private router:Router, private errorService:ErrorService){
+  constructor (
+    private authService:AuthService, 
+    private router:Router, 
+    private errorService:ErrorService
+  ){
 
   }
   public onLogin(f:NgForm){

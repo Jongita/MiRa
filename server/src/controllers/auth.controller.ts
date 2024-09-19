@@ -16,7 +16,7 @@ export class AuthController{
         const [result]=await pool.query<User[]>(sql,[email]);
         if  (result.length!=0){
             return res.status(400).json({
-                'text':"Vartotojas su tokiu el. pašto adresu yra registruotas"
+                'text':"User with such e-mail is already registered"
             })
         }
 
@@ -34,14 +34,14 @@ export class AuthController{
         const [result]=await pool.query<User[]>(sql, [email])
         if (result.length!=1){
             return res.status(400).json({
-                'text': 'Vartotojas su tokiu el.pastu neegzistuoja'
+                'text': 'User with this email does not exist'
             })
         }
         const user=result[0]
         let passwordOK = await bcrypt.compare(password, user.password);
         if(!passwordOK){
             return res.status(400).json({
-                'text': 'Ivestas neteisingas slaptazodis arba el.pasto adresas'
+                'text': 'Incorrect password or e-mail address entered'
             })
         }
 

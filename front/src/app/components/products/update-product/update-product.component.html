@@ -1,31 +1,60 @@
-<div class="card mt-3">
-    <div class="card-header">Atnaujinti prekę</div>
-    <div class="card-body">
-        <form (ngSubmit)="productSubmit(f)" #f="ngForm">
-            <div class="mb-3">
-                <!-- Binding the img tag's src attribute to imageUrl -->
-                <img [src]="imageUrl" alt="Product Image" class="img-fluid" style="max-width: 200px;">
+<div class="row d-flex justify-content-center align-items-center mt-3">
+    <div class="col-6 py-5" style="background-color: #553759;">
+        <div class="card card-registration card-registration-2" style="border-radius: 10px;">
+            <div class="card-header">Update product</div>
+            <div class="card-body">
+                <form (ngSubmit)="productSubmit(f)" #f="ngForm">
+
+                    <!-- Existing fields -->
+                    <div class="mb-3">
+                        <img [src]="imageUrl" alt="Product Image" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                    <div class="my-3">
+                        <img [src]="imgPreview" alt="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" ngModel [(ngModel)]="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" name="description" ngModel [(ngModel)]="description">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="number" class="form-control" name="price" ngModel [(ngModel)]="price">
+                    </div>
+
+                    <!-- New fields -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" name="category" ngModel [(ngModel)]="category">
+                            <option value="metal">Metal</option>
+                            <option value="roof">Roof</option>
+                            <option value="facade">Facade</option>
+                            <option value="floor">Floor</option>
+                            <option value="wood">Wood</option>
+                            <option value="walls">Walls</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Stock</label>
+                        <input type="number" class="form-control" name="stock" ngModel [(ngModel)]="stock">
+                    </div>
+                    <div class="mb-3">
+                        <label for="specification" class="form-label">Specification</label>
+                        <textarea class="form-control" name="specification" ngModel [(ngModel)]="specification"></textarea>
+                    </div>
+
+                    <!-- Image upload -->
+                    <div class="mb-3">
+                        <button class="btn btn-info" type="button">Upload picture</button>
+                        <input type="file" name="newImage" #imagePicker (change)="onImageChange($event)">
+                    </div>
+
+                    <button class="btn btn-dark" type="submit">Atnaujinti</button>
+                </form>
             </div>
-            <div class="my-3">
-                <img [src]="imgPreview" alt="">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="name" ngModel [(ngModel)]="name">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Description</label>
-                <input type="text" class="form-control" name="description" ngModel [(ngModel)]="description">
-            </div>
-            <div class="mb-3">
-                <label for="" class="form-label">Kaina</label>
-                <input type="number" class="form-control" name="price" ngModel [(ngModel)]="price">
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-info" type="button">Įkelti paveikslėlį</button>
-                <input type="file" name="newImage" #imagePicker (change)="onImageChange($event)">
-            </div>
-            <button class="btn btn-dark" type="submit">Atnaujinti</button>
-        </form>
+        </div>
     </div>
 </div>

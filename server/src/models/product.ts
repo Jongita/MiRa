@@ -7,4 +7,7 @@ export interface Product extends RowDataPacket{
     price:number;
     description: string;
     imageUrl: string;
+    category?: string;
+    stock?: number
+    specification?: string;
 }

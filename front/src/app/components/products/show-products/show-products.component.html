@@ -13,17 +13,23 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>Category</th>
+                    <th>Specification</th>
+                    <th>Stock</th>
                     <th *ngIf="authService.canEdit()">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let product of products; let i=index;">
                     <td>{{ i+1 }}</td>
-                    <td><img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}} " style="max-width: 100px;"></td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.description }}</td>
-                    <td>{{ product.price }}</td>
-                    <td *ngIf="authService.canEdit()">
+                    <td><img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}} " style="max-width: 200px; min-width: 100px;"></td>
+                    <td style="width: 200px;">{{ product.name }}</td>
+                    <td style="width: 200px;">{{ product.description }}</td>
+                    <td style="width: 100px;">{{ product.price }}</td>
+                    <td style="width: 100px;">{{ product.category }}</td>
+                    <td style="width: 450px;">{{ product.specification }}</td>
+                    <td style="width: 100px;">{{ product.stock }}</td>
+                    <td *ngIf="authService.canEdit()" style="width: 200px;">
                         <a class="btn btn-dark btn-sm mx-1" [routerLink]="['/products',product.id]">
                             <i class="fas fa-edit"></i>
                         </a>

@@ -20,14 +20,14 @@ export class UserController{
 
         if ( !(req.user.type==0 || userId==req.user.id)){
             res.status(400).json({
-                text:"Jūs neturite teisės redaguoti įrašą"
+                text:"You do not have permission to edit the post"
             })
         }
         
         const [result]=await pool.query<User[]>("SELECT * FROM users WHERE id=?",[userId]);
         if (result.length==0){
             res.status(404).json({
-                text:"Vartotojas nerastas"
+                text:"User not found"
             });
         }else{
             res.json(result[0]);
@@ -83,7 +83,7 @@ export class UserController{
 
         if ( !(req.user.type==0 || userId==req.user.id)){
             res.status(400).json({
-                text:"Jūs neturite teisės redaguoti įrašą"
+                text:"You do not have permission to edit the post"
             })
         }
 
