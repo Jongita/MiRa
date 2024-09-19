@@ -76,6 +76,6 @@ export class CartComponent {
   }
 
   checkout(): void {
-    // Logic for checkout
+    
   }
 }

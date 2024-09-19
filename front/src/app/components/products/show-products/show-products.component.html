@@ -1,11 +1,12 @@
+<div class="d-flex justify-content-end mb-3 mt-3">
+    <a class="btn btn-dark btn-lg" routerLink="/new">
+        <i class="fas fa-plus"></i> Add New Product
+    </a>
+</div>
+
 <div class="card mt-3" style="background-color: #553759;">
     <div class="card-body">
-        <!-- Container for the button, aligned to the end -->
-        <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-dark btn-lg" routerLink="/new">Add New Product</button>
-        </div>
-
-        <table class="table">
+        <table class="table text-white">
             <thead>
                 <tr>
                     <th>No</th>
@@ -20,11 +21,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let product of products; let i=index;">
-                    <td>{{ i+1 }}</td>
-                    <td>
-                        <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}" style="max-width: 200px; min-width: 100px;">
-                    </td>
+                <tr *ngFor="let product of products; let i = index;">
+                    <td>{{ i + 1 }}</td>
+                    <td><img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}" style="max-width: 200px; min-width: 100px;"></td>
                     <td style="width: 200px;">{{ product.name }}</td>
                     <td style="width: 200px;">{{ product.description }}</td>
                     <td style="width: 100px;">{{ product.price }}</td>
@@ -44,10 +43,3 @@
         </table>
     </div>
 </div>
-
-<style>
-    .btn-lg {
-        font-size: 1.25rem;
-        padding: 0.75rem 1.25rem;
-    }
-</style>

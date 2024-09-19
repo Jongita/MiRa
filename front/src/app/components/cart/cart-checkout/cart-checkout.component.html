@@ -1,0 +1,49 @@
+<section class="checkout">
+    <div *ngIf="cartItems.length > 0; else emptyCart">
+        <h2>Your Cart</h2>
+
+        <!-- User Information -->
+        <div *ngIf="user" class="user-info mb-3">
+            <h4>User Information</h4>
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <!-- Table with items and small images -->
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartItems" class="cart-item">
+                    <td>
+                        <img [src]="item.product.imageUrl" [alt]="item.product.name" class="img-thumbnail" style="max-width: 50px;">
+                    </td>
+                    <td>{{ item.product.name }}</td>
+                    <td>€{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>€{{ item.product.price * item.quantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Display total price -->
+        <div class="cart-summary">
+            <h4>Shipping: Standard Delivery - €{{ shippingCost }}</h4>
+            <h3>Total Price (incl. shipping): €{{ totalPrice + shippingCost }}</h3>
+        </div>
+
+        <!-- Optional: Add checkout button -->
+        <button class="btn btn-primary mt-3">Proceed to Checkout</button>
+    </div>
+
+    <ng-template #emptyCart>
+        <p>Your cart is empty.</p>
+    </ng-template>
+</section>

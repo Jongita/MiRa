@@ -9,22 +9,39 @@
                             <div class="col-md-6">
                                 <img [src]="product.imageUrl" class="img-fluid rounded-3 shadow" alt="{{ product.name }}">
                             </div>
-
                             <!-- Product Details -->
                             <div class="col-md-6">
                                 <h2 class="fw-bold">{{ product?.name }}</h2>
                                 <h4 class="text-success fw-bold">${{ product.price }}</h4>
                                 <p class="text-muted">{{ product.description }}</p>
 
-                                <!-- Quantity Selector with Flexbox for Alignment -->
+                                <!-- Specifications -->
+                                <div class="mb-3">
+                                    <h5 class="fw-bold">Description:</h5>
+                                    <p class="text-muted">{{ product?.specification }}</p>
+                                </div>
+
+                                <!-- Stock Status -->
+                                <!-- <div class="mb-3">
+                                    <span class="fw-bold" [ngClass]="{'text-success': product?.stock > 0, 'text-danger': product?.stock <= 0}">
+                                        {{ product?.stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                                    </span>
+                                </div> -->
+
+                                <!-- Quantity Selector -->
                                 <div class="mb-3">
                                     <label for="quantity" class="form-label">Quantity</label>
                                     <input type="number" id="quantity" class="form-control w-25" min="1" value="1" [(ngModel)]="quantity">
                                 </div>
 
                                 <!-- Add to Cart Button -->
-                                <button class="btn btn-dark btn-lg mt-3" (click)="addProductToCart(product)">
+                                <button class="btn btn-dark btn-lg mt-3 me-2" (click)="addProductToCart(product)">
                                     <i class="fa fa-shopping-cart me-2"></i> Add to Cart
+                                </button>
+
+                                <!-- Buy Now Button -->
+                                <button class="btn btn-primary btn-lg mt-3" (click)="buyNow(product)">
+                                    <i class="fa fa-credit-card me-2"></i> Buy Now
                                 </button>
                             </div>
                             <div class="pt-5">
@@ -36,7 +53,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

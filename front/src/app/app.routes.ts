@@ -14,6 +14,7 @@ import { UpdateProductComponent } from './components/products/update-product/upd
 import { NewProductComponent } from './components/products/new-product/new-product.component';
 import { UserProfileComponent } from './components/users/user-profile/user-profile.component';
 import { adminGuard } from './guards/admin.guard';
+import { CartCheckoutComponent } from './components/cart/cart-checkout/cart-checkout.component';
 
 export const routes: Routes = [
     {path:"product/list",component:ListProductsComponent},
@@ -42,6 +43,9 @@ export const routes: Routes = [
 
     {path: "cart", component:CartComponent,
         canActivate:[viewGuard]
+    },
+
+     {path: "cart/checkout", component:CartCheckoutComponent
     },
 
     {

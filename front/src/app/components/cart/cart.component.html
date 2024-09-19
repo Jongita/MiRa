@@ -71,7 +71,7 @@
                                     <div class="mb-4 pb-2">
                                         <select class="form-select" [(ngModel)]="selectedShipping" aria-label="Shipping method">
                                             <option value="5">Standard Delivery - €5.00</option>
-                                            <option value="10">Express Delivery - €10.00</option>
+                                            <!-- <option value="10">Express Delivery - €10.00</option> -->
                                         </select>
                                     </div>
 
@@ -91,7 +91,7 @@
                                         <h5>€ {{ getTotalWithShipping() | number: '1.2-2' }}</h5>
                                     </div>
 
-                                    <button type="button" class="btn btn-dark btn-block btn-lg" (click)="checkout()">
+                                    <button type="button" class="btn btn-dark btn-block btn-lg" (click)="checkout()" routerLink="/cart/checkout">
                                         Checkout
                                     </button>
                                 </div>
