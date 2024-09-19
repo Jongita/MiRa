@@ -37,7 +37,7 @@
             <div class="d-flex ms-3">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/cart" *ngIf="isLoggedin">
+                        <a class="nav-link" routerLink="/cart" *ngIf="authService.canViewData()">
                             <i class="fas fa-shopping-cart"></i>
                             <span class="badge bg-dark ms-1">{{ cartItemCount }}</span>
                         </a>

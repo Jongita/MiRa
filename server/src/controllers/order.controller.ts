@@ -1,5 +1,6 @@
 import { pool } from "../db/connect";
 import { Order, ResultOrdersProducts } from "../models/order";
+import { UserOrder } from "../models/userOrder";
 
 
 export class OrderController{
@@ -34,6 +35,27 @@ export class OrderController{
         }
        
     }
+
+    static async getOrdersByUserId(req: any, res: any) {
+  const userId = req.params.id; // Assuming user ID is passed in the params
+  const sql = `SELECT mo.id AS orderID, mo.email, mo.order_date, u.id AS userID, 
+              op.product_id, op.count, p.name, p.description, p.imageUrl
+              FROM mira.orders mo 
+              LEFT JOIN users u ON mo.email = u.email 
+              JOIN orders_products op ON mo.id = op.order_id
+              JOIN products p ON op.product_id=p.id
+              WHERE u.id = ?`;
+              
+  const [result] = await pool.query<UserOrder[]>(sql, [userId]);
+
+  if (result.length === 0) {
+    return res.status(404).json({ 'text': 'No orders found for this user' });
+  } else {
+    return res.json(result);
+  }
+}
+    
+    
 
       static async insert(req:any, res:any){
         const order:Order=req.body;

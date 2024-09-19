@@ -1,27 +1,59 @@
-<div class="row d-flex justify-content-center align-items-center mt-3">
-    <div class="col-6 py-5" style="background-color: #553759;">
+<div class="row d-flex justify-content-center align-items-start mt-3">
+    <!-- User Profile Section -->
+    <div class="col-12 col-md-4 py-5" style="background-color: #553759;">
         <div class="card card-registration card-registration-2" style="border-radius: 10px;">
-
-            <div class="card-header">User</div>
+            <div class="card-header">User Profile</div>
             <div class="card-body">
-                <img [src]="user?.img" alt="" class="img-fluid">
+                <img [src]="user?.img" alt="User Image" class="img-fluid" style="max-width: 200px;">
                 <hr>
                 <div>
-                    Name: <b> {{ user?.name }}</b>
+                    Name: <b>{{ user?.name }}</b>
                 </div>
                 <div>
-                    Surname: <b> {{ user?.surname }}</b>
+                    Surname: <b>{{ user?.surname }}</b>
                 </div>
                 <div>
-                    E-mail: <b> {{ user?.email }}</b>
+                    Email: <b>{{ user?.email }}</b>
                 </div>
                 <div>
-                    Phone: <b> {{ user?.phone }}</b>
+                    Phone: <b>{{ user?.phone }}</b>
                 </div>
             </div>
             <div class="card-body">
-                <a class="btn btn-dark btn-block" routerLink="/profile/update">Update profile</a>
+                <a class="btn btn-dark btn-block" routerLink="/profile/update">Update Profile</a>
             </div>
+        </div>
+    </div>
+    <!-- Orders Section -->
+    <div class="col-12 col-md-8 mt-3">
+        <div *ngIf="orders.length > 0">
+            <h3>Your Orders</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Order ID</th>
+                        <th>Order Date</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orders; let i = index;">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.order_date | date: 'short' }}</td>
+                        <td>{{ order.name }}</td>
+                        <td>{{ order.count }}</td>
+                        <td>{{ order.description }}</td>
+                        <td>{{ order.imageUrl }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="orders.length === 0">
+            <p>No orders found for this user.</p>
         </div>
     </div>
 </div>

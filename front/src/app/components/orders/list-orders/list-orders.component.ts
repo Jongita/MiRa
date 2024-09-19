@@ -27,32 +27,7 @@ public orders:Order[]=[];
   constructor(private ordersService:OrderService, private productsService:ProductService){
   this.loadRecords();
 
-// Nebutinas antras kreipimasis i serveri, viska gausime su viena uzklausa
-  // productsService.getProducts().subscribe({
-  //     next:(products)=>{
-  //       this.products=products;
-  //     }
-  //   })
-
-}
-
-// public getProductName(id:number){
-//     let result="";
-//     this.products.forEach((product)=>{ 
-//       if (product.id==id) 
-//         result= product.name;
-//     });
-//     return result;
-//   }
-
-//   public getProductPrice(id:number){
-//     let result=null;
-//     this.products.forEach((product)=>{ 
-//       if (product.id==id) 
-//         result= product.price;
-//     });
-//     return result;
-//   }
+  }
 
   public deleteOrder(id?:number){
     if(id!=null){

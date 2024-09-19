@@ -48,12 +48,16 @@ export class AuthService {
     return this.user!=null && (this.user.type==0 || this.user.type==1)
   }
 
+  public canSeeUser(){
+    return this.user!=null && (this.user.type==2 || this.user.type==1)
+  }
+
   public canEditUsers(){
     return (this.user!=null && (this.user.type==0))
   }
 
   public canViewData(){
-    return this.isLoggedin();
+    return this.isLoggedin() && (this.user!.type==2)
   }
 
 
