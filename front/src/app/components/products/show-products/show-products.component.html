@@ -1,10 +1,10 @@
-<div>
-    <button class="btn btn-dark" routerLink="/new">Naujas</button>
-</div>
-
 <div class="card mt-3" style="background-color: #553759;">
-    <!-- <div class="card-header">Produktų sąrašas</div> -->
     <div class="card-body">
+        <!-- Container for the button, aligned to the end -->
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-dark btn-lg" routerLink="/new">Add New Product</button>
+        </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -22,7 +22,9 @@
             <tbody>
                 <tr *ngFor="let product of products; let i=index;">
                     <td>{{ i+1 }}</td>
-                    <td><img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}} " style="max-width: 200px; min-width: 100px;"></td>
+                    <td>
+                        <img [src]="product.imageUrl" class="card-img-top" alt="{{product.name}}" style="max-width: 200px; min-width: 100px;">
+                    </td>
                     <td style="width: 200px;">{{ product.name }}</td>
                     <td style="width: 200px;">{{ product.description }}</td>
                     <td style="width: 100px;">{{ product.price }}</td>
@@ -30,7 +32,7 @@
                     <td style="width: 450px;">{{ product.specification }}</td>
                     <td style="width: 100px;">{{ product.stock }}</td>
                     <td *ngIf="authService.canEdit()" style="width: 200px;">
-                        <a class="btn btn-dark btn-sm mx-1" [routerLink]="['/products',product.id]">
+                        <a class="btn btn-dark btn-sm mx-1" [routerLink]="['/products', product.id]">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a class="btn btn-danger btn-sm mx-1" (click)="deleteProduct(product.id!)">
@@ -42,3 +44,10 @@
         </table>
     </div>
 </div>
+
+<style>
+    .btn-lg {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.25rem;
+    }
+</style>

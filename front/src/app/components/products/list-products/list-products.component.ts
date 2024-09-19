@@ -6,6 +6,7 @@ import { CartService } from '../../../services/cart.service';
 import { AuthService } from '../../../services/auth.service';
 import { FilterProductsComponent } from '../filter-products/filter-products.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-list-products',
@@ -46,7 +47,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
     private productsService: ProductService,
     public authService: AuthService,
     private cartService: CartService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorService: ErrorService
   ) {
     this.loadProducts();
   }
@@ -78,13 +80,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   //   this.cartService.addToCart(product);
   // }
 
-  addToCart(product: Product): void {
+   addToCart(product: Product): void {
     if (this.isLoggedIn()) {
-        this.cartService.addToCart(product);
+      this.cartService.addToCart(product);
     } else {
-        this.showLoginMessage();
+      this.errorService.errorEmitter.emit('Please log in to add items to your cart.'); // Emit error message
     }
-}
+  }
 
 isLoggedIn(): boolean {
     // Implement your logic to check if the user is logged in
