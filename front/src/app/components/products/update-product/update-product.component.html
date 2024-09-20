@@ -48,11 +48,11 @@
 
                     <!-- Image upload -->
                     <div class="mb-3">
-                        <button class="btn btn-info" type="button">Upload picture</button>
-                        <input type="file" name="newImage" #imagePicker (change)="onImageChange($event)">
+                        <button class="btn btn-dark" type="button">Upload picture</button>
+                        <input class="d-none" type="file" name="newImage" #imagePicker (change)="onImageChange($event)">
                     </div>
 
-                    <button class="btn btn-dark" type="submit">Atnaujinti</button>
+                    <button class="btn btn-dark" type="submit">Update</button>
                 </form>
             </div>
         </div>

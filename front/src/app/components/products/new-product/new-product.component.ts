@@ -39,7 +39,7 @@ export class NewProductComponent {
 
    this.productsService.addProduct(formData).subscribe({
       next: (data) => {
-        this.errorService.errorEmitter.emit('Product successfully added!');
+        // this.errorService.errorEmitter.emit('Product successfully added!');
         this.router.navigate(['product', 'show']);
       },
       error: (error) => {
